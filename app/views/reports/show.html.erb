@@ -1,0 +1,83 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Emis:</strong>
+  <%= @report.emis %>
+</p>
+
+<p>
+  <strong>Centre no:</strong>
+  <%= @report.centre_no %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @report.name %>
+</p>
+
+<p>
+  <strong>Wrote 2014:</strong>
+  <%= @report.wrote_2014 %>
+</p>
+
+<p>
+  <strong>Passed 2014:</strong>
+  <%= @report.passed_2014 %>
+</p>
+
+<p>
+  <strong>Wrote 2015:</strong>
+  <%= @report.wrote_2015 %>
+</p>
+
+<p>
+  <strong>Passed 2015:</strong>
+  <%= @report.passed_2015 %>
+</p>
+
+<p>
+  <strong>Wrote 2016:</strong>
+  <%= @report.wrote_2016 %>
+</p>
+
+<p>
+  <strong>Passed 2016:</strong>
+  <%= @report.passed_2016 %>
+</p>
+
+<%= link_to 'Edit', edit_report_path(@report) %> |
+<%= link_to 'Back', reports_path %>
+
+ <head>
+   
+    <script type="text/javascript">
+google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Pass', 'Fail'],
+          ['2014', (<%= @report.passed_2014 %> / <%= @report.wrote_2014 %>) * 100,
+          ((<%= @report.passed_2014 %> / <%= @report.wrote_2014 %>) * 100) - 100],
+          ['2015',(<%= @report.passed_2015 %> / <%= @report.wrote_2015 %>) * 100,
+         ((<%= @report.passed_2015 %> / <%= @report.wrote_2015 %>) * 100) - 100],
+          ['2016', (<%= @report.passed_2016 %> / <%= @report.wrote_2016 %>) * 100, 
+         ((<%= @report.passed_2016 %> / <%= @report.wrote_2016 %>) * 100) - 100]
+    
+        ]);
+
+        var options = {
+          title: 'Grade 12 Performance',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="curve_chart" style="width: 900px; height: 500px"></div>
+  </body>
